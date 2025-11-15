@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1" author="erp">
+        <createTable tableName="ATTRIBUTE">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_ATTRIBUTE"/>
+            </column>
+            <column name="NAME" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="2" author="erp">
+        <createTable tableName="BLOCK">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_BLOCK"/>
+            </column>
+            <column name="NAME" type="VARCHAR(255)"/>
+            <column name="DESCRIPTION" type="VARCHAR(255)"/>
+            <column name="NORM_TIME" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="3" author="erp">
+        <createTable tableName="DEPARTMENT">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_DEPARTMENT"/>
+            </column>
+            <column name="NAME" type="VARCHAR(255)"/>
+            <column name="DESCRIPTION" type="VARCHAR(255)"/>
+            <column name="MAX_LOAD_HOURS" type="INT"/>
+            <column name="CURRENT_LOAD_HOURS" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="4" author="erp">
+        <createTable tableName="EMPLOYEE">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_EMPLOYEE"/>
+            </column>
+            <column name="USER_ID" type="UUID"/>
+            <column name="DEPARMENT_ID" type="UUID"/>
+            <column name="POSITION_" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="5" author="erp">
+        <createTable tableName="PROJECT">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_PROJECT"/>
+            </column>
+            <column name="NAME" type="VARCHAR(255)"/>
+            <column name="DESCRIPTION" type="VARCHAR(255)"/>
+            <column name="CLIENT" type="VARCHAR(255)"/>
+            <column name="PLANNED_BUDGET" type="DECIMAL(19, 2)"/>
+            <column name="ACTUAL_BUDGET" type="DECIMAL"/>
+            <column name="PLANNED_END_DATE" type="DATE"/>
+            <column name="ACTUAL_END_DATE" type="DATE"/>
+            <column name="STATUS" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="6" author="erp">
+        <createTable tableName="TASK_">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_TASK_"/>
+            </column>
+            <column name="NAME" type="VARCHAR(255)"/>
+            <column name="PROJECT_ID" type="UUID"/>
+            <column name="ROLE_RESPONSIBLE_ID" type="UUID"/>
+            <column name="PLANNED_START" type="DATE"/>
+            <column name="PLANNED_END" type="DATE"/>
+            <column name="ACTUAL_END_DATE" type="DATE"/>
+            <column name="PLANNED_BUDGET" type="DECIMAL(19, 2)"/>
+            <column name="ACTUAL_BUDGET" type="DECIMAL"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="7" author="erp">
+        <createTable tableName="TASK_ATTRIBUTE_LINK">
+            <column name="ATTRIBUTE_ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_TASK_ATTRIBUTE_LINK"/>
+            </column>
+            <column name="TASK_ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_TASK_ATTRIBUTE_LINK"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="8" author="erp">
+        <createTable tableName="TASK_BLOCK">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_TASK_BLOCK"/>
+            </column>
+            <column name="TASK_ID" type="UUID"/>
+            <column name="BLOCK_ID" type="UUID"/>
+            <column name="DESCRIPTION" type="VARCHAR(255)"/>
+            <column name="PLANNED_START" type="DATE"/>
+            <column name="PLANNED_END" type="DATE"/>
+            <column name="ACTUAL_END" type="DATE"/>
+            <column name="STATUS" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="9" author="erp">
+        <createIndex indexName="IDX_EMPLOYEE_DEPARMENT" tableName="EMPLOYEE">
+            <column name="DEPARMENT_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="DEPARMENT_ID" baseTableName="EMPLOYEE"
+                                 constraintName="FK_EMPLOYEE_ON_DEPARMENT" referencedColumnNames="ID"
+                                 referencedTableName="DEPARTMENT"/>
+    </changeSet>
+    <changeSet id="10" author="erp">
+        <createIndex indexName="IDX_EMPLOYEE_USER" tableName="EMPLOYEE">
+            <column name="USER_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="USER_ID" baseTableName="EMPLOYEE" constraintName="FK_EMPLOYEE_ON_USER"
+                                 onDelete="SET NULL" referencedColumnNames="ID" referencedTableName="USER_"/>
+    </changeSet>
+    <changeSet id="11" author="erp">
+        <createIndex indexName="IDX_TASK_BLOCK_TASK" tableName="TASK_BLOCK">
+            <column name="TASK_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="TASK_ID" baseTableName="TASK_BLOCK"
+                                 constraintName="FK_TASK_BLOCK_ON_TASK" referencedColumnNames="ID"
+                                 referencedTableName="TASK_"/>
+    </changeSet>
+    <changeSet id="12" author="erp">
+        <createIndex indexName="IDX_TASK__PROJECT" tableName="TASK_">
+            <column name="PROJECT_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="PROJECT_ID" baseTableName="TASK_" constraintName="FK_TASK__ON_PROJECT"
+                                 onDelete="CASCADE" referencedColumnNames="ID" referencedTableName="PROJECT"/>
+    </changeSet>
+    <changeSet id="13" author="erp">
+        <createIndex indexName="IDX_TASK__ROLE_RESPONSIBLE" tableName="TASK_">
+            <column name="ROLE_RESPONSIBLE_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="ROLE_RESPONSIBLE_ID" baseTableName="TASK_"
+                                 constraintName="FK_TASK__ON_ROLE_RESPONSIBLE" referencedColumnNames="ID"
+                                 referencedTableName="DEPARTMENT"/>
+    </changeSet>
+    <changeSet id="14" author="erp">
+        <addForeignKeyConstraint baseColumnNames="ATTRIBUTE_ID" baseTableName="TASK_ATTRIBUTE_LINK"
+                                 constraintName="FK_TASATT_ON_ATTRIBUTE" referencedColumnNames="ID"
+                                 referencedTableName="ATTRIBUTE"/>
+    </changeSet>
+    <changeSet id="15" author="erp">
+        <addForeignKeyConstraint baseColumnNames="TASK_ID" baseTableName="TASK_ATTRIBUTE_LINK"
+                                 constraintName="FK_TASATT_ON_TASK" referencedColumnNames="ID"
+                                 referencedTableName="TASK_"/>
+    </changeSet>
+    <changeSet id="16" author="erp">
+        <addForeignKeyConstraint baseColumnNames="BLOCK_ID" baseTableName="TASK_BLOCK"
+                                 constraintName="FK_TASK_BLOCK_ON_BLOCK" referencedColumnNames="ID"
+                                 referencedTableName="BLOCK"/>
+    </changeSet>
+</databaseChangeLog>
