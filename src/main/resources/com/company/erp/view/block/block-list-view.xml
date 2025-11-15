@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
+      title="msg://blockListView.title"
+      focusComponent="blocksDataGrid">
+    <data>
+        <collection id="blocksDc"
+                    class="com.company.erp.entity.Block">
+            <fetchPlan extends="_base"/>
+            <loader id="blocksDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from Block e]]>
+                </query>
+            </loader>
+        </collection>
+        <instance id="blockDc"
+                  class="com.company.erp.entity.Block">
+            <fetchPlan extends="_base"/>
+            <loader id="blockDl"/>
+        </instance>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <urlQueryParameters>
+            <genericFilter component="genericFilter"/>
+            <pagination component="pagination"/>
+        </urlQueryParameters>
+    </facets>
+    <actions>
+        <action id="selectAction" type="lookup_select"/>
+        <action id="discardAction" type="lookup_discard"/>
+    </actions>
+    <layout padding="false">
+        <formLayout id="layoutWrapper" classNames="master-detail-layout" height="100%">
+            <vbox id="listLayout" height="100%">
+                <genericFilter id="genericFilter"
+                               dataLoader="blocksDl">
+                    <properties include=".*"/>
+                </genericFilter>
+                <hbox id="buttonsPanel" classNames="buttons-panel">
+                    <startSlot>
+                        <button id="createButton" action="blocksDataGrid.createAction"/>
+                        <button id="editButton" action="blocksDataGrid.editAction"/>
+                        <button id="removeButton" action="blocksDataGrid.removeAction"/>
+                    </startSlot>
+                    <endSlot>
+                        <simplePagination id="pagination" dataLoader="blocksDl"/>
+                    </endSlot>
+                </hbox>
+                <dataGrid id="blocksDataGrid"
+                          width="100%"
+                          minHeight="20em"
+                          dataContainer="blocksDc"
+                          columnReorderingAllowed="true">
+                    <actions>
+                        <action id="createAction" type="list_create"/>
+                        <action id="editAction" type="list_edit"/>
+                        <action id="removeAction" type="list_remove"/>
+                    </actions>
+                    <columns resizable="true">
+                        <column property="name"/>
+                        <column property="description"/>
+                        <column property="normTime"/>
+                    </columns>
+                </dataGrid>
+                <hbox id="lookupActions" visible="false">
+                    <button id="selectButton" action="selectAction"/>
+                    <button id="discardButton" action="discardAction"/>
+                </hbox>
+            </vbox>
+            <vbox id="detailsLayout" height="100%">
+                <formLayout id="form" dataContainer="blockDc">
+                    <responsiveSteps>
+                        <responsiveStep minWidth="0" columns="1"/>
+                        <responsiveStep minWidth="40em" columns="2"/>
+                    </responsiveSteps>
+                    <textField id="nameField" property="name"/>
+                    <textField id="descriptionField" property="description"/>
+                    <textField id="normTimeField" property="normTime"/>
+                </formLayout>
+                <hbox id="detailActions">
+                    <button id="saveButton" text="msg:///actions.Save" icon="CHECK" themeNames="primary"/>
+                    <button id="cancelButton" text="msg:///actions.Cancel" icon="BAN"/>
+                </hbox>
+            </vbox>
+        </formLayout>
+    </layout>
+</view>

@@ -40,7 +40,7 @@
                 <constraints nullable="false" primaryKey="true" primaryKeyName="PK_EMPLOYEE"/>
             </column>
             <column name="USER_ID" type="UUID"/>
-            <column name="DEPARMENT_ID" type="UUID"/>
+            <column name="DEPARTMENT_ID" type="UUID"/>
             <column name="POSITION_" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
@@ -100,11 +100,11 @@
     </changeSet>
     <changeSet id="9" author="erp">
         <createIndex indexName="IDX_EMPLOYEE_DEPARMENT" tableName="EMPLOYEE">
-            <column name="DEPARMENT_ID"/>
+            <column name="DEPARTMENT_ID"/>
         </createIndex>
 
-        <addForeignKeyConstraint baseColumnNames="DEPARMENT_ID" baseTableName="EMPLOYEE"
-                                 constraintName="FK_EMPLOYEE_ON_DEPARMENT" referencedColumnNames="ID"
+        <addForeignKeyConstraint baseColumnNames="DEPARTMENT_ID" baseTableName="EMPLOYEE"
+                                 constraintName="FK_EMPLOYEE_ON_DEPARTMENT" referencedColumnNames="ID"
                                  referencedTableName="DEPARTMENT"/>
     </changeSet>
     <changeSet id="10" author="erp">

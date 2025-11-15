@@ -1,8 +1,11 @@
 package com.company.erp.entity;
 
 import io.jmix.core.DeletePolicy;
+import io.jmix.core.MetadataTools;
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
 import io.jmix.core.entity.annotation.OnDeleteInverse;
+import io.jmix.core.metamodel.annotation.DependsOnProperties;
+import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -19,7 +22,7 @@ import java.util.UUID;
 @JmixEntity
 @Table(name = "EMPLOYEE", indexes = {
         @Index(name = "IDX_EMPLOYEE_USER", columnList = "USER_ID"),
-        @Index(name = "IDX_EMPLOYEE_DEPARMENT", columnList = "DEPARMENT_ID")
+        @Index(name = "IDX_EMPLOYEE_DEPARMENT", columnList = "DEPARTMENT_ID")
 })
 @Entity
 public class Employee {
@@ -33,9 +36,9 @@ public class Employee {
     @OneToOne(fetch = FetchType.LAZY)
     private User user;
 
-    @JoinColumn(name = "DEPARMENT_ID")
+    @JoinColumn(name = "DEPARTMENT_ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    private Department deparment;
+    private Department department;
 
     @Column(name = "POSITION_")
     private String position;
@@ -48,12 +51,12 @@ public class Employee {
         this.position = position;
     }
 
-    public Department getDeparment() {
-        return deparment;
+    public Department getDepartment() {
+        return department;
     }
 
-    public void setDeparment(Department deparment) {
-        this.deparment = deparment;
+    public void setDepartment(Department deparment) {
+        this.department = deparment;
     }
 
     public User getUser() {
@@ -72,4 +75,11 @@ public class Employee {
         this.id = id;
     }
 
+    @InstanceName
+    @DependsOnProperties({"user", "position"})
+    public String getInstanceName(MetadataTools metadataTools) {
+        return String.format("%s %s",
+                metadataTools.format(user),
+                metadataTools.format(position));
+    }
 }
