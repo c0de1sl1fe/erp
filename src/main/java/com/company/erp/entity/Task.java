@@ -3,6 +3,7 @@ package com.company.erp.entity;
 import io.jmix.core.DeletePolicy;
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
 import io.jmix.core.entity.annotation.OnDeleteInverse;
+import io.jmix.core.metamodel.annotation.Composition;
 import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
 import jakarta.persistence.Column;
@@ -62,6 +63,7 @@ public class Task {
     @Column(name = "ACTUAL_BUDGET")
     private BigDecimal actualBudget;
 
+    @Composition
     @OneToMany(mappedBy = "task")
     private List<TaskBlock> blocks;
 

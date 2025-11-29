@@ -8,11 +8,14 @@
             <fetchPlan extends="_base">
                 <property name="project" fetchPlan="_base"/>
                 <property name="roleResponsible" fetchPlan="_base"/>
-                <property name="blocks" fetchPlan="_base"/>
+                <property name="blocks" fetchPlan="_base">
+                    <property name="block" fetchPlan="_instance_name"/>
+                </property>
                 <property name="attribute" fetchPlan="_base"/>
             </fetchPlan>
             <loader id="taskDl"/>
             <collection id="attributeDc" property="attribute"/>
+            <collection id="blockDc" property="blocks"/>
         </instance>
     </data>
     <facets>
@@ -47,20 +50,52 @@
             <textField id="plannedBudgetField" property="plannedBudget"/>
             <textField id="actualBudgetField" property="actualBudget"/>
         </formLayout>
-        <h4 text="msg://com.company.erp.entity/Task.attribute"/>
-        <hbox id="attributeButtonsPanel" classNames="buttons-panel">
-            <button action="attributeDataGrid.addAction"/>
-            <button action="attributeDataGrid.excludeAction"/>
+
+        <hbox width="100%">
+            <vbox width="100%">
+            <h4 text="msg://com.company.erp.entity/Task.attribute"/>
+            <hbox id="attributeButtonsPanel" classNames="buttons-panel">
+                <button action="attributeDataGrid.addAction"/>
+                <button action="attributeDataGrid.excludeAction"/>
+            </hbox>
+            <dataGrid id="attributeDataGrid" dataContainer="attributeDc" width="100%" minHeight="20em">
+                <actions>
+                    <action id="addAction" type="list_add"/>
+                    <action id="excludeAction" type="list_exclude"/>
+                </actions>
+                <columns>
+                    <column property="name"/>
+                </columns>
+            </dataGrid>
+            </vbox>
+            <vbox>
+            <h4 text="msg://com.company.erp.entity/Task.blocks"/>
+            <hbox id="blocksButtonsPanel" classNames="buttons-panel">
+                <button action="attributeDataGrid.addAction"/>
+                <button action="attributeDataGrid.excludeAction"/>
+            </hbox>
+            <dataGrid id="blockDataGrid" dataContainer="blockDc" width="100%" minHeight="20em">
+                <actions>
+                    <action id="createAction" type="list_create">
+                        <properties>
+                            <property name="openMode" value="DIALOG"/>
+                        </properties>
+                    </action>
+
+                    <action id="editAction" type="list_edit">
+                        <properties>
+                            <property name="openMode" value="DIALOG"/>
+                        </properties>
+                    </action>
+                    <action id="excludeAction" type="list_exclude"/>
+                </actions>
+                <columns>
+                    <column property="block"/>
+                    <column property="description"/>
+                </columns>
+            </dataGrid>
+            </vbox>
         </hbox>
-        <dataGrid id="attributeDataGrid" dataContainer="attributeDc" width="100%" minHeight="20em">
-            <actions>
-                <action id="addAction" type="list_add"/>
-                <action id="excludeAction" type="list_exclude"/>
-            </actions>
-            <columns>
-                <column property="name"/>
-            </columns>
-        </dataGrid>
         <hbox id="detailActions">
             <button id="saveAndCloseButton" action="saveCloseAction"/>
             <button id="closeButton" action="closeAction"/>
