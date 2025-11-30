@@ -49,6 +49,7 @@
             <datePicker id="actualEndDateField" property="actualEndDate"/>
             <textField id="plannedBudgetField" property="plannedBudget"/>
             <textField id="actualBudgetField" property="actualBudget"/>
+            <select id="statusField" property="status"/>
         </formLayout>
 
         <hbox width="100%">
@@ -92,6 +93,9 @@
                 <columns>
                     <column property="block"/>
                     <column property="description"/>
+                    <column property="plannedStart"/>
+                    <column property="plannedEnd"/>
+                    <column property="actualEnd"/>
                 </columns>
             </dataGrid>
             </vbox>

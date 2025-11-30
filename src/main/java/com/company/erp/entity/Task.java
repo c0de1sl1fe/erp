@@ -35,6 +35,9 @@ public class Task {
     @Id
     private UUID id;
 
+    @Column(name = "STATUS")
+    private String status;
+
     @InstanceName
     @Column(name = "NAME")
     private String name;
@@ -68,10 +71,18 @@ public class Task {
     private List<TaskBlock> blocks;
 
     @JoinTable(name = "TASK_ATTRIBUTE_LINK",
-            joinColumns = @JoinColumn(name = "TASK_ID"),
-            inverseJoinColumns = @JoinColumn(name = "ATTRIBUTE_ID"))
+            joinColumns = @JoinColumn(name = "TASK_ID", referencedColumnName = "ID"),
+            inverseJoinColumns = @JoinColumn(name = "ATTRIBUTE_ID", referencedColumnName = "ID"))
     @ManyToMany
     private List<Attribute> attribute;
+
+    public TaskStatus getStatus() {
+        return status == null ? null : TaskStatus.fromId(status);
+    }
+
+    public void setStatus(TaskStatus status) {
+        this.status = status == null ? null : status.getId();
+    }
 
     public void setAttribute(List<Attribute> attribute) {
         this.attribute = attribute;

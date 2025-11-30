@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <view xmlns="http://jmix.io/schema/flowui/view"
+      xmlns:charts="http://jmix.io/schema/charts/ui"
       title="msg://taskBlockDetailView.title"
       focusComponent="form">
     <data>
@@ -8,6 +9,7 @@
             <fetchPlan extends="_base">
                 <property name="task" fetchPlan="_base"/>
                 <property name="block" fetchPlan="_base"/>
+                <property name="employee" fetchPlan="_base"/>
             </fetchPlan>
             <loader id="taskBlockDl"/>
         </instance>
@@ -37,6 +39,12 @@
                     <action id="entityClearAction" type="entity_clear"/>
                 </actions>
             </entityPicker>
+            <entityPicker id="employeeField" property="employee">
+                <actions>
+                    <action id="entityLookupAction" type="entity_lookup"/>
+                    <action id="entityClearAction" type="entity_clear"/>
+                </actions>
+            </entityPicker>
             <textField id="descriptionField" property="description"/>
             <datePicker id="plannedStartField" property="plannedStart"/>
             <datePicker id="plannedEndField" property="plannedEnd"/>
@@ -47,5 +55,6 @@
             <button id="saveAndCloseButton" action="saveCloseAction"/>
             <button id="closeButton" action="closeAction"/>
         </hbox>
+
     </layout>
 </view>
