@@ -31,25 +31,25 @@
                 <responsiveStep minWidth="0" columns="1"/>
                 <responsiveStep minWidth="40em" columns="2"/>
             </responsiveSteps>
-            <textField id="nameField" property="name"/>
-            <entityPicker id="projectField" property="project">
+            <textField id="nameField" property="name" required="true"/>
+            <entityPicker id="projectField" property="project" required="true">
                 <actions>
                     <action id="entityLookupAction" type="entity_lookup"/>
                     <action id="entityClearAction" type="entity_clear"/>
                 </actions>
             </entityPicker>
-            <entityPicker id="roleResponsibleField" property="roleResponsible">
+            <entityPicker id="roleResponsibleField" property="roleResponsible" required="true">
                 <actions>
                     <action id="entityLookupAction" type="entity_lookup"/>
                     <action id="entityClearAction" type="entity_clear"/>
                 </actions>
             </entityPicker>
-            <datePicker id="plannedStartField" property="plannedStart"/>
-            <datePicker id="plannedEndField" property="plannedEnd"/>
+            <datePicker id="plannedStartField" property="plannedStart" required="true"/>
+            <datePicker id="plannedEndField" property="plannedEnd" required="true"/>
             <datePicker id="actualEndDateField" property="actualEndDate"/>
-            <textField id="plannedBudgetField" property="plannedBudget"/>
+            <textField id="plannedBudgetField" property="plannedBudget" required="true"/>
             <textField id="actualBudgetField" property="actualBudget"/>
-            <select id="statusField" property="status"/>
+            <select id="statusField" property="status" required="true"/>
         </formLayout>
 
         <hbox width="100%">
@@ -72,8 +72,8 @@
             <vbox>
             <h4 text="msg://com.company.erp.entity/Task.blocks"/>
             <hbox id="blocksButtonsPanel" classNames="buttons-panel">
-                <button action="attributeDataGrid.addAction"/>
-                <button action="attributeDataGrid.excludeAction"/>
+                <button action="blockDataGrid.createAction"/>
+                <button action="blockDataGrid.excludeAction"/>
             </hbox>
             <dataGrid id="blockDataGrid" dataContainer="blockDc" width="100%" minHeight="20em">
                 <actions>

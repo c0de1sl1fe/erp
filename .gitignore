@@ -29,3 +29,12 @@ vite.generated.ts
 webpack.generated.js
 
 .DS_Store
+
+ganttService/gantt.idea/*
+ganttService/!.idea/encodings.xml
+ganttService/*.iws
+ganttService/*.iml
+ganttService/*.ipr
+ganttService/out/
+ganttService/.venv/*
+ganttService/__pycache__/*
