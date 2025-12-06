@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>ERP Development</title>
+</head>
+<body>
+<main style="font-family: Inter, Roboto, Arial, sans-serif; padding:16px; color:#222;">
+  <style>
+    :root {
+      --row-h: 40px;
+      --labels-w: 260px;
+      --chart-w: 920px;
+      --accent-planned: #2b9cf3;
+      --accent-actual: #f39c12;
+      --accent-group: #e9eef6;
+    }
+
+    .gantt {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      width: 100%;
+      max-width: 1200px;
+    }
+
+    .labels {
+      width: var(--labels-w);
+      min-width: var(--labels-w);
+      box-sizing: border-box;
+    }
+
+    .labels .row {
+      height: var(--row-h);
+      line-height: var(--row-h);
+      padding: 0 8px;
+      border-bottom: 1px dashed #eee;
+    }
+
+    .labels .task {
+      font-weight: 700;
+      color: #111;
+    }
+
+    .labels .block {
+      padding-left: 12px;
+      color: #444;
+      font-size: 0.95em;
+    }
+
+    .chart-wrap {
+      border: 1px solid #efefef;
+      width: var(--chart-w);
+      overflow: auto;
+    }
+
+    .chart-header {
+      display: flex;
+      height: var(--row-h);
+      border-bottom: 1px solid #ddd;
+      background: white;
+    }
+
+    .tick {
+      flex: 0 0 60px;
+      text-align: center;
+      padding-top: 8px;
+      font-size: 12px;
+      border-right: 1px solid #f5f5f5;
+      box-sizing: border-box;
+    }
+
+    .rows {
+      position: relative;
+      min-width: 720px;
+    }
+
+    .rows .row {
+      position: relative;
+      height: var(--row-h);
+      border-bottom: 1px dashed #f6f6f6;
+      box-sizing: border-box;
+    }
+
+    .group-bg {
+      position: absolute;
+      height: 12px;
+      top: 14px;
+      border-radius: 4px;
+      background: var(--accent-group);
+      opacity: 0.8;
+    }
+
+    .bar {
+      position: absolute;
+      height: 20px;
+      top: 8px;
+      border-radius: 4px;
+      background: var(--accent-planned);
+      color: white;
+      display: flex;
+      align-items: center;
+      padding: 0 8px;
+      font-size: 12px;
+      box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      box-sizing: border-box;
+    }
+
+    .bar.actual {
+      background: transparent;
+      border: 2px dashed var(--accent-actual);
+      color: var(--accent-actual);
+    }
+
+    .legend {
+      margin-top: 12px;
+      font-size: 13px;
+    }
+
+    .legend .item {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      margin-right: 16px;
+    }
+
+    .sw {
+      width: 22px;
+      height: 12px;
+      border-radius: 3px;
+      display: inline-block;
+    }
+
+    .sw.group {
+      background: var(--accent-group);
+    }
+
+    .sw.planned {
+      background: var(--accent-planned);
+    }
+
+    .sw.actual {
+      border: 2px dashed var(--accent-actual);
+      background: transparent;
+    }
+
+    @media (max-width:1024px) {
+      :root {
+        --chart-w: 720px;
+      }
+    }
+  </style>
+
+  <h3 style="margin:0 0 12px 0">ERP Development</h3>
+
+  <div class="gantt">
+    <div class="labels" aria-hidden="true">
+      <div class="row task">Импорт legacy данных</div>
+      <div class="row block">Подготовка структуры</div>
+    </div>
+
+    <div class="chart-wrap" role="img" aria-label="Gantt chart">
+      <div class="chart-header" aria-hidden="true">
+        <div class="tick">2025-01-10</div>
+        <div class="tick">2025-01-17</div>
+        <div class="tick">2025-01-24</div>
+        <div class="tick">2025-01-31</div>
+        <div class="tick">2025-02-07</div>
+        <div class="tick">2025-02-14</div>
+        <div class="tick">2025-02-21</div>
+        <div class="tick">2025-02-28</div>
+      </div>
+
+      <div class="rows">
+        <div class="row"><div class="group-bg" style="left:3.9216%; width:7.8431%;"></div></div>
+        <div class="row">
+          <div class="bar" style="left:3.9216%;width:7.8431%;">Подготовка структуры</div>
+          <div class="bar actual" style="left:3.9216%;width:9.8039%;">Подготовка структуры (факт)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="legend" aria-hidden="true">
+    <span class="item"><span class="sw group"></span> Задача (интервал по блокам)</span>
+    <span class="item"><span class="sw planned"></span> Плановый интервал блока</span>
+    <span class="item"><span class="sw actual"></span> Фактический интервал (пунктир)</span>
+  </div>
+</main>
+</body>
+</html>

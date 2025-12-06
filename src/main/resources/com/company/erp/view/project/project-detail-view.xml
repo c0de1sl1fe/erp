@@ -27,14 +27,14 @@
                 <responsiveStep minWidth="0" columns="1"/>
                 <responsiveStep minWidth="40em" columns="2"/>
             </responsiveSteps>
-            <textField id="nameField" property="name"/>
+            <textField id="nameField" property="name" required="true"/>
             <textField id="descriptionField" property="description"/>
-            <textField id="clientField" property="client"/>
-            <textField id="plannedBudgetField" property="plannedBudget"/>
+            <textField id="clientField" property="client" required="true"/>
+            <textField id="plannedBudgetField" property="plannedBudget" required="true"/>
             <textField id="actualBudgetField" property="actualBudget"/>
-            <datePicker id="plannedEndDateField" property="plannedEndDate"/>
+            <datePicker id="plannedEndDateField" property="plannedEndDate" required="true"/>
             <datePicker id="actualEndDateField" property="actualEndDate"/>
-            <select id="statusField" property="status"/>
+            <select id="statusField" property="status" required="true"/>
         </formLayout>
         <h4 text="msg://com.company.erp.entity/Project.tasks"/>
         <hbox id="tasksButtonsPanel" classNames="buttons-panel">

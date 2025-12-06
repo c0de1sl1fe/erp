@@ -5,6 +5,7 @@
         <item view="Project.list" title="msg://com.company.erp.view.project/projectListView.title"/>
         <item view="Task_.list" title="msg://com.company.erp.view.task/taskListView.title"/>
         <item view="TaskBlock.list" title="msg://com.company.erp.view.taskblock/taskBlockListView.title"/>
+        <item view="DashboardView" title="msg://com.company.erp.view.dashboard/dashboardView.title"/>
     </menu>
     <menu id="additional" title="msg://com.company.erp/additional">
         <item view="Block.list" title="msg://com.company.erp.view.block/blockListView.title"/>

@@ -17,7 +17,8 @@ import java.util.UUID;
 
 @JmixEntity
 @Table(name = "TASK_BLOCK", indexes = {
-        @Index(name = "IDX_TASK_BLOCK_TASK", columnList = "TASK_ID")
+        @Index(name = "IDX_TASK_BLOCK_TASK", columnList = "TASK_ID"),
+        @Index(name = "IDX_TASK_BLOCK_EMPLOYEE", columnList = "EMPLOYEE_ID")
 })
 @Entity
 public class TaskBlock {
@@ -25,6 +26,10 @@ public class TaskBlock {
     @Column(name = "ID", nullable = false)
     @Id
     private UUID id;
+
+    @JoinColumn(name = "EMPLOYEE_ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Employee employee;
 
     @JoinColumn(name = "TASK_ID")
     @ManyToOne(fetch = FetchType.LAZY)
@@ -49,6 +54,14 @@ public class TaskBlock {
 
     @Column(name = "STATUS")
     private String status;
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
 
     public String getDescription() {
         return description;

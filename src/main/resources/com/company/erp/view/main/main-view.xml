@@ -55,6 +55,9 @@
                 This is the work area - central part of the view.
                 Put your components here.
             -->
+            <span text="test"/>
+            <html id="test" content="msg://testHtml"/>
+
         </initialLayout>
     </appLayout>
 </mainView>

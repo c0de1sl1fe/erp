@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://dashboardView.title">
+    <data>
+        <collection id="projectsDc"
+                    class="com.company.erp.entity.Project">
+            <fetchPlan extends="_base">
+                <property name="tasks" fetchPlan="_base">
+                    <property name="blocks" fetchPlan="_base"/>
+                </property>
+            </fetchPlan>
+            <loader id="projectsDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from Project e]]>
+                </query>
+            </loader>
+        </collection>
+        <collection id="tasksDc"
+                    class="com.company.erp.entity.Task">
+            <fetchPlan extends="_base"/>
+            <loader id="tasksDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from Task_ e where e.project = :project]]>
+                </query>
+            </loader>
+        </collection>
+        <collection id="blocksDc"
+                    class="com.company.erp.entity.TaskBlock">
+            <fetchPlan extends="_base">
+                <property name="block" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader id="blocksDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from TaskBlock e where e.task = :task]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <urlQueryParameters>
+            <!--            <genericFilter component="genericFilter"/>-->
+            <!--            <pagination component="pagination"/>-->
+        </urlQueryParameters>
+    </facets>
+    <layout>
+        <hbox id="tablesBox" width="100%" spacing="true">
+            <!-- Первая колонка: Проекты -->
+            <vbox width="33%">
+                <h2 text="Проекты"/>
+                <dataGrid id="projectDataGrid"
+                          width="100%"
+                          minHeight="200px"
+                          dataContainer="projectsDc">
+                    <columns>
+                        <column property="name"/>
+                        <column property="description"/>
+                        <column property="status"/>
+                    </columns>
+                </dataGrid>
+            </vbox>
+            <!-- Вторая колонка: Задачи -->
+            <vbox width="33%">
+                <h2 text="Задачи"/>
+                <dataGrid id="taskDataGrid"
+                          width="100%"
+                          minHeight="200px"
+                          dataContainer="tasksDc">
+                    <columns>
+                        <column property="name"/>
+                        <column property="status"/>
+                    </columns>
+
+                </dataGrid>
+            </vbox>
+            <!-- Третья колонка: Блоки -->
+            <vbox width="33%">
+                <h2 text="Блоки"/>
+                <dataGrid id="blockDataGrid"
+                          width="100%"
+                          minHeight="200px"
+                          dataContainer="blocksDc">
+                    <columns>
+                        <column property="block"/>
+                        <column property="description"/>
+                        <column property="status"/>
+                    </columns>
+
+                </dataGrid>
+            </vbox>
+        </hbox>
+        <vbox width="100%">
+            <!-- HTML элемент для диаграммы Ганта -->
+            <vbox>
+                <h3 text="Диаграмма Ганта"/>
+                <div width="100%">
+                    <html id="ganttHtml" content="msg://com.company.erp.view.main/testHtml"/>
+                </div>
+            </vbox>
+            <vbox>
+                <h3 text="Статистика"/>
+                <html id="statsHtml" content="msg://com.company.erp.view.main/test1Html"/>
+
+            </vbox>
+
+        </vbox>
+    </layout>
+</view>

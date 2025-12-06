@@ -57,6 +57,7 @@
                 <column property="actualEndDate"/>
                 <column property="plannedBudget"/>
                 <column property="actualBudget"/>
+                <column property="status"/>
             </columns>
         </dataGrid>
         <hbox id="lookupActions" visible="false">

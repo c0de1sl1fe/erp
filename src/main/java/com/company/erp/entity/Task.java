@@ -3,6 +3,7 @@ package com.company.erp.entity;
 import io.jmix.core.DeletePolicy;
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
 import io.jmix.core.entity.annotation.OnDeleteInverse;
+import io.jmix.core.metamodel.annotation.Composition;
 import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
 import jakarta.persistence.Column;
@@ -34,6 +35,9 @@ public class Task {
     @Id
     private UUID id;
 
+    @Column(name = "STATUS")
+    private String status;
+
     @InstanceName
     @Column(name = "NAME")
     private String name;
@@ -62,14 +66,23 @@ public class Task {
     @Column(name = "ACTUAL_BUDGET")
     private BigDecimal actualBudget;
 
+    @Composition
     @OneToMany(mappedBy = "task")
     private List<TaskBlock> blocks;
 
     @JoinTable(name = "TASK_ATTRIBUTE_LINK",
-            joinColumns = @JoinColumn(name = "TASK_ID"),
-            inverseJoinColumns = @JoinColumn(name = "ATTRIBUTE_ID"))
+            joinColumns = @JoinColumn(name = "TASK_ID", referencedColumnName = "ID"),
+            inverseJoinColumns = @JoinColumn(name = "ATTRIBUTE_ID", referencedColumnName = "ID"))
     @ManyToMany
     private List<Attribute> attribute;
+
+    public TaskStatus getStatus() {
+        return status == null ? null : TaskStatus.fromId(status);
+    }
+
+    public void setStatus(TaskStatus status) {
+        this.status = status == null ? null : status.getId();
+    }
 
     public void setAttribute(List<Attribute> attribute) {
         this.attribute = attribute;
