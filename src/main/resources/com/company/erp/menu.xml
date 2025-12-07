@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <menu-config xmlns="http://jmix.io/schema/flowui/menu">
 
+    <menu id="stats" title="msg://com.company.erp/stats">
+        <item view="DashboardView" title="msg://com.company.erp.view.dashboard/dashboardView.title"/>
+    </menu>
+
     <menu id="application" title="msg://com.company.erp/menu.application.title" opened="true">
         <item view="Project.list" title="msg://com.company.erp.view.project/projectListView.title"/>
         <item view="Task_.list" title="msg://com.company.erp.view.task/taskListView.title"/>
         <item view="TaskBlock.list" title="msg://com.company.erp.view.taskblock/taskBlockListView.title"/>
-        <item view="DashboardView" title="msg://com.company.erp.view.dashboard/dashboardView.title"/>
     </menu>
     <menu id="additional" title="msg://com.company.erp/additional">
         <item view="Block.list" title="msg://com.company.erp.view.block/blockListView.title"/>

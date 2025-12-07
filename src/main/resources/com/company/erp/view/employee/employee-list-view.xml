@@ -86,7 +86,7 @@
                             <action id="entityClearAction" type="entity_clear"/>
                         </actions>
                     </entityPicker>
-                    <entityPicker id="deparmentField" property="department">
+                    <entityPicker id="deparmentField" property="department" required="true">
                         <actions>
                             <action id="entityLookupAction" type="entity_lookup"/>
                             <action id="entityClearAction" type="entity_clear"/>
