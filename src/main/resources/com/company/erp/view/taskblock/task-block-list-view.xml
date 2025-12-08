@@ -10,6 +10,13 @@
             <loader id="taskBlocksDl" readOnly="true">
                 <query>
                     <![CDATA[select e from TaskBlock e]]>
+                    <condition>
+                        <and>
+                            <c:jpql>
+                                <c:where>e.employee = :employee</c:where>
+                            </c:jpql>
+                        </and>
+                    </condition>
                 </query>
             </loader>
         </collection>
